@@ -4,7 +4,6 @@ import axios from 'axios'
 import Header from './Components/Header'
 import List from './Components/List'
 import Totals from './Components/Totals'
-// import express from 'express';
 
 class App extends Component {
   constructor() {
@@ -20,6 +19,7 @@ class App extends Component {
       carbsTotal: 0,
       fatsTotal: 0
     }
+    //bindMethods
     this.handleMeals = this.handleMeals.bind(this)
     this.handleProtein = this.handleProtein.bind(this)
     this.handleCarbs =this.handleCarbs.bind(this)
@@ -28,9 +28,7 @@ class App extends Component {
     this.deleteMeal = this.deleteMeal.bind(this)
     this.editMeal = this.editMeal.bind(this)
   }
-
-
-
+// HandleInputBoxes
   handleMeals(e) {
     this.setState({mealInput: e.target.value})
   }
@@ -43,8 +41,6 @@ class App extends Component {
   handleFats(e) {
     this.setState({fatsInput: e.target.value})
   }
-
-
 // GET
   componentDidMount() {
     axios.get('/api/macros')
@@ -54,7 +50,6 @@ class App extends Component {
     })
     .catch(err => console.log(err))
   }
-
 // POST
   addMeal() {
     let newMeal = {
@@ -74,12 +69,11 @@ class App extends Component {
     })
     axios.post('/api/macros', {newMeal})
     .then(res => {
-      // console.log(res.data)
       this.setState({mealsToDisplay: res.data})
     })
     .catch(err => console.log(err))
   }
-
+//PUT
 editMeal(id) {
   let changeMeal = {
     meal: this.state.mealInput,
@@ -93,7 +87,6 @@ editMeal(id) {
     carbsInput: ``,
     fatsInput: ``,
   })
-  console.log({changeMeal})
   axios.put(`/api/macros/${id}`, {changeMeal})
   .then(res => {
 
@@ -103,7 +96,6 @@ editMeal(id) {
     const carbTtl = res.data.reduce(carbReducer, 0)
     const fatsReducer = (acc, cur) => acc + +cur.fats
     const fatsTtl = res.data.reduce(fatsReducer, 0)
-
     this.setState({
       mealsToDisplay: res.data,
       proteinTotal: proteinTtl,
@@ -113,8 +105,6 @@ editMeal(id) {
   })
   .catch(err => console.log(err))
 }
-
-
 // DELETE
   deleteMeal(id) {
     axios.delete(`/api/macros/${id}`)
@@ -134,9 +124,7 @@ editMeal(id) {
     })
     .catch(err => console.log(err))
   }
-
-
-
+// RENDER
   render() {
   return (
     <div className="App">
@@ -172,3 +160,14 @@ editMeal(id) {
 }
 
 export default App;
+
+// 1 setup the App.js as a class component
+// 2 create the onchange funcctions for the input fields (put these input variables into state)
+// 3 bind these functions and call them in each input tag and assign input to value of each input
+//4 GET function (can be requested through componentDidMount) set a property of state to equal mealsToDisplay and in function reassign this state to res.data through axios
+//5 POST function will create a new meal entry - inside function declare a variable object that assigns handlechanges to a property in an object, once this is done reset input boxes, then assign macro input to macro totals 
+// 6 PUT function will take in an id and allow you to edit it using the same input boxes, set a variable called changeMeal equal to the inputs and send it as a body in the PUT axios request, reset input variables and total up macros using reduce method on res.data, set total states equal to this
+// 7 DELETE function will take in an id and delete that entry, and then sum up the totals again and set state for the totals again 
+// 8 bind the edit and delete function and then pass them with mealsToDisplay as props to List
+// 9 pass macro totals as props to Totals
+// import all Components used

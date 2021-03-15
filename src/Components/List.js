@@ -1,36 +1,11 @@
 import React, {Component} from 'react'
 import MealEntry from './MealEntry'
 
-
 class List extends Component {
-    constructor() {
-        super()
-        this.state = {
-            newMeal: ``,
-            newProtein: ``,
-            newCarbs: ``,
-            newFats: ``
-        }
-    }
-    changeMeal(e) {
-        this.setState({newMeal: e.target.value})
-    }
-    changeProtein(e) {
-        this.setState({newProtein: e.target.value})
-    }
-    changeCarbs(e) {
-        this.setState({newCarbs: e.target.value})
-    }
-    changeFats(e) {
-        this.setState({newFats: e.target.value})
-    }
-
-
+// RENDER
     render () {
-    
             const {mealsToDisplay} = this.props
             const meals = mealsToDisplay.map((e, i) => {
-                // console.log(mealsToDisplay)
                 return (
                 <section className="child-entry" key={e.id}>
                     {/* <div className="box meal" >Meal: {e.id}</div> */}
@@ -53,3 +28,12 @@ class List extends Component {
 }
 
 export default List
+
+// 1 import React, {Component}
+// 2 set up List as a class Component, don't need any state
+// 3 destructure props - mealsToDisplay
+// 4 under render but above return assign variable meals to map through mealsToDisplay and return each element of object as a different div and add buttons for edit and delete 
+// 5 assign editMeal to an anonymous onCLick to the edit button and pass in mealsToDisplay[i].id
+// 6 assign deleteMeal to an anonymous onClick to the delete button and pass in mealsToDisplay[i].id
+// 7 return MealEntry component and pass meals as props to MealEntry
+// import MealEntry
