@@ -2,49 +2,19 @@
 
 const Totals = (props) => {
     const proteinTotal = props.proteinTotal
+    const carbsTotal = props.carbsTotal
+    const fatsTotal = props.fatsTotal
+    const total = ((proteinTotal * 4) + (carbsTotal * 4) + (fatsTotal * 9))
     return (
-        <h2>{proteinTotal}</h2>
+        <section className="totals">
+            <div></div>
+            <div></div>
+        <h1>Protein: {proteinTotal} g</h1>
+        <h1>Carbs: {carbsTotal} g</h1> 
+        <h1>Fats: {fatsTotal} g</h1> 
+        <h1>{total} calories</h1>
+        </section>
     )
 }
-
-
-
-
-// class Totals extends Component {
-//     constructor() {
-//         super()
-//         this.state = {
-            
-//         }
-//     }
-//     getProteinTotal() {
-//         const {mealsToDisplay} = this.props
-//         mealsToDisplay.map(e => {
-//           return this.setState({proteinTotal: this.proteinTotal += e.protein}) 
-//         })
-//     }
-//     getCarbsTotal() {
-//         const {mealsToDisplay} = this.props
-//         mealsToDisplay.map(e => {
-//           return this.setState({carbsTotal: this.state.carbsTotal + 
-//             +e.carbs}) 
-//         })
-//     }
-//     getFatsTotal() {
-//         const {mealsToDisplay} = this.props
-//         mealsToDisplay.map(e => {
-//           return this.setState({proteinTotal: this.fatsTotal += e.fats}) 
-//         })
-//     }
-
-//     render() {
-//         // console.log(this.props.mealsToDisplay)
-//     return (
-//         <footer className="footer">
-//             <h1>I am the totals</h1>
-//         </footer>
-//     )
-//     }
-// }
 
 export default Totals

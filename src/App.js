@@ -26,13 +26,13 @@ class App extends Component {
     this.handleFats = this.handleFats.bind(this)
     this.addMeal = this.addMeal.bind(this)
     this.deleteMeal = this.deleteMeal.bind(this)
+    this.editMeal = this.editMeal.bind(this)
   }
 
 
 
   handleMeals(e) {
     this.setState({mealInput: e.target.value})
-    
   }
   handleProtein(e) {
     this.setState({proteinInput: e.target.value})
@@ -68,7 +68,9 @@ class App extends Component {
       proteinInput: ``,
       carbsInput: ``,
       fatsInput: ``,
-      proteinTotal: this.state.proteinTotal + +this.state.proteinInput
+      proteinTotal: this.state.proteinTotal + +this.state.proteinInput,
+      carbsTotal: this.state.carbsTotal + +this.state.carbsInput,
+      fatsTotal: this.state.fatsTotal + +this.state.fatsInput
       // add same for carbs and fats
     })
     console.log(newMeal)
@@ -82,16 +84,37 @@ class App extends Component {
   }
 
 // PUT 
+editMeal(id, newMeal, newProtein, newCarbs, newFats) {
+  let body = {
+    meal: newMeal,
+    protein: newProtein,
+    carbs: newCarbs,
+    fats: newFats
+  }
+  console.log(body)
+  axios.put(`./api/macros/${id}`, body)
+  .then(res => {
+    this.setState({mealsToDisplay: res.data})
+  })
+  .catch(err => console.log(err))
+}
+
 
 // DELETE
   deleteMeal(id, index) {
     axios.delete(`/api/macros/${id}`)
     .then(res => {
-      // const index = res.data.filter((meal) => meal.id === id)
-      console.log(res.data[index])
+      const proteinReducer = (acc, cur) => acc + +cur.protein
+      const proteinTtl = res.data.reduce(proteinReducer, 0)
+      const carbReducer = (acc, cur) => acc + +cur.carbs
+      const carbTtl = res.data.reduce(carbReducer, 0)
+      const fatsReducer = (acc, cur) => acc + +cur.fats
+      const fatsTtl = res.data.reduce(fatsReducer, 0)
       this.setState({
         mealsToDisplay: res.data,
-        proteinTotal: this.state.proteinTotal - (+res.data[index].protein -1)
+        proteinTotal: proteinTtl,
+        carbsTotal: carbTtl,
+        fatsTotal: fatsTtl
       })
     })
     .catch(err => console.log(err))
@@ -116,13 +139,18 @@ class App extends Component {
       <input value={this.state.fatsInput} 
       onChange={this.handleFats}
       placeholder="FATS"/>
-      <button onClick={this.addMeal}>ADD Meal</button>
+      <button className="btn" onClick={this.addMeal}>Add Meal</button>
       </section>
       <List 
       mealsToDisplay={this.state.mealsToDisplay}
       deleteMeal={this.deleteMeal}
+      editMeal={this.editMeal}
       index={this.state.index}/>
-      <Totals proteinTotal={this.state.proteinTotal}/>
+      <Totals 
+      proteinTotal={this.state.proteinTotal}
+      carbsTotal={this.state.carbsTotal}
+      fatsTotal={this.state.fatsTotal}
+      />
     </div>
   );
   }

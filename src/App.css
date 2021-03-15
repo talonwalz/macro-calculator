@@ -1,5 +1,11 @@
 .App {
   text-align: center;
+  width: 80vw;
+  height: 100%;
+  margin: 2% 10%;
+  border: 2px black solid;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px darkgray;
 }
 
 * {
@@ -9,26 +15,38 @@
 
 .header {
   background-color: lightgray;
+  padding: 10px;
 }
 
 .parent-entry {
   width: 100%;
+  height: 100%;
   display: flex;
-  border: 1px solid black;
+  border-top: 1px solid black;
+  border-bottom: 1px black solid;
 }
 
 .child-entry {
-  width: 100vw;
+  width: 80vw;
   display: flex;
   justify-content: space-evenly;
   background-color: lightgray;
-  padding: 10px;
+  padding: 5px 0px;
+}
+
+
+
+.box1 {
+  width: 30%;
+  height: 20px;
+  text-align: left;
 }
 
 .box {
-  width: 90px;
+  width: 15%;
   height: 20px;
 }
+
 
 .btn {
   border-radius: 10px;
@@ -58,6 +76,13 @@ button {
   padding: 10px;
 }
 
-.footer {
+.totals {
   background-color: lightgray;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px;
+}
+
+.totals div {
+  font-weight: 600;
 }
