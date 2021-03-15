@@ -1,41 +1,50 @@
-import React, { Component } from 'react'
+// import React, { Component } from 'react'
 
-
-class Totals extends Component {
-    constructor() {
-        super()
-        this.state = {
-            proteinTotal: 0,
-            carbsTotal: 0,
-            fatsTotal: 0
-        }
-    }
-    getProteinTotal() {
-        const {mealsToDisplay} = this.props
-        mealsToDisplay.map(e => {
-          return this.setState({proteinTotal: this.proteinTotal += e.protein}) 
-        })
-    }
-    getCarbsTotal() {
-        const {mealsToDisplay} = this.props
-        mealsToDisplay.map(e => {
-          return this.setState({carbsTotal: this.carbTotal += e.carbs}) 
-        })
-    }
-    getFatsTotal() {
-        const {mealsToDisplay} = this.props
-        mealsToDisplay.map(e => {
-          return this.setState({proteinTotal: this.fatsTotal += e.fats}) 
-        })
-    }
-
-    render() {
+const Totals = (props) => {
+    const proteinTotal = props.proteinTotal
     return (
-        <footer>
-            <h1>I will be the totals bar</h1>
-        </footer>
+        <h2>{proteinTotal}</h2>
     )
-    }
 }
+
+
+
+
+// class Totals extends Component {
+//     constructor() {
+//         super()
+//         this.state = {
+            
+//         }
+//     }
+//     getProteinTotal() {
+//         const {mealsToDisplay} = this.props
+//         mealsToDisplay.map(e => {
+//           return this.setState({proteinTotal: this.proteinTotal += e.protein}) 
+//         })
+//     }
+//     getCarbsTotal() {
+//         const {mealsToDisplay} = this.props
+//         mealsToDisplay.map(e => {
+//           return this.setState({carbsTotal: this.state.carbsTotal + 
+//             +e.carbs}) 
+//         })
+//     }
+//     getFatsTotal() {
+//         const {mealsToDisplay} = this.props
+//         mealsToDisplay.map(e => {
+//           return this.setState({proteinTotal: this.fatsTotal += e.fats}) 
+//         })
+//     }
+
+//     render() {
+//         // console.log(this.props.mealsToDisplay)
+//     return (
+//         <footer className="footer">
+//             <h1>I am the totals</h1>
+//         </footer>
+//     )
+//     }
+// }
 
 export default Totals

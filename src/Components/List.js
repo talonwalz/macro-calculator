@@ -6,29 +6,28 @@ class List extends Component {
     constructor() {
         super()
         this.state = {
-
         }
-        this.displayMeals = this.displayMeals.bind(this)
-    }
-    displayMeals() {
-        const {mealsToDisplay} = this.props
-        return mealsToDisplay.map(e => {
-            return (
-            <section key={e.id}>
-                <div>{e.id}</div>
-                <div>{e.meal}</div>
-                <div>{e.protein}</div>
-                <div>{e.carbs}</div>
-                <div>{e.fats}</div>
-             </section>
-            )
-        })
     }
     render () {
+            const {mealsToDisplay} = this.props
+            const meals = mealsToDisplay.map((e, i) => {
+                // console.log(mealsToDisplay)
+                return (
+                <section className="child-entry" key={e.id}>
+                    <div className="box meal" >Meal: {e.id}</div>
+                    <div className="box" >{e.meal}</div>
+                    <div>index:{i}</div>
+                    <div className="box" >{e.protein}</div>
+                    <div className="box" >{e.carbs}</div>
+                    <div className="box" >{e.fats}</div>
+                    <button className="btn" >Edit</button>
+                    <button className="btn" onClick={() => this.props.deleteMeal(mealsToDisplay[i].id, i)}>Delete</button>
+                 </section>
+                )
+            })
         return (
-            <article>
-                {this.displayMeals()}
-                <MealEntry/>
+            <article className="parent-entry">
+                <MealEntry meals={meals}/>
             </article>
         )
     }

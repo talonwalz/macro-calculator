@@ -4,16 +4,21 @@ import axios from 'axios'
 import Header from './Components/Header'
 import List from './Components/List'
 import Totals from './Components/Totals'
+// import express from 'express';
 
 class App extends Component {
   constructor() {
     super()
     this.state = {
       mealsToDisplay: [],
+      index: ``,
       mealInput: ``,
       proteinInput: ``,
       carbsInput: ``,
-      fatsInput: ``
+      fatsInput: ``,
+      proteinTotal: 0,
+      carbsTotal: 0,
+      fatsTotal: 0
     }
     this.handleMeals = this.handleMeals.bind(this)
     this.handleProtein = this.handleProtein.bind(this)
@@ -25,17 +30,18 @@ class App extends Component {
 
 
 
-  handleMeals(event) {
-    this.setState({mealInput: event.target.value})
+  handleMeals(e) {
+    this.setState({mealInput: e.target.value})
+    
   }
-  handleProtein(event) {
-    this.setState({proteinInput: event.target.value})
+  handleProtein(e) {
+    this.setState({proteinInput: e.target.value})
   }
-  handleCarbs(event) {
-    this.setState({carbsInput: event.target.value})
+  handleCarbs(e) {
+    this.setState({carbsInput: e.target.value})
   }
-  handleFats(event) {
-    this.setState({fatsInput: event.target.value})
+  handleFats(e) {
+    this.setState({fatsInput: e.target.value})
   }
 
 
@@ -61,12 +67,15 @@ class App extends Component {
       mealInput: ``,
       proteinInput: ``,
       carbsInput: ``,
-      fatsInput: ``
+      fatsInput: ``,
+      proteinTotal: this.state.proteinTotal + +this.state.proteinInput
+      // add same for carbs and fats
     })
     console.log(newMeal)
     axios.post('/api/macros', {newMeal})
     .then(res => {
-      console.log(res.data)
+      // console.log(res.data)
+      console.log(this.state.proteinTotal)
       this.setState({mealsToDisplay: res.data})
     })
     .catch(err => console.log(err))
@@ -75,8 +84,17 @@ class App extends Component {
 // PUT 
 
 // DELETE
-  deleteMeal(id) {
+  deleteMeal(id, index) {
     axios.delete(`/api/macros/${id}`)
+    .then(res => {
+      // const index = res.data.filter((meal) => meal.id === id)
+      console.log(res.data[index])
+      this.setState({
+        mealsToDisplay: res.data,
+        proteinTotal: this.state.proteinTotal - (+res.data[index].protein -1)
+      })
+    })
+    .catch(err => console.log(err))
   }
 
 
@@ -85,23 +103,26 @@ class App extends Component {
   return (
     <div className="App">
       <Header/>
-      <input value={this.state.mealInput}
+      <section className="inputBar">
+      <input className="mealInput" value={this.state.mealInput}
       onChange={this.handleMeals} 
-      placeholder="meal"/>
+      placeholder="MEAL"/>
       <input value={this.state.proteinInput}
       onChange={this.handleProtein}
       placeholder="PROTEIN"/>
       <input value={this.state.carbsInput}
       onChange={this.handleCarbs}
-      placeholder="CARBOHYDRATES"/>
+      placeholder="CARBS"/>
       <input value={this.state.fatsInput} 
       onChange={this.handleFats}
       placeholder="FATS"/>
       <button onClick={this.addMeal}>ADD Meal</button>
+      </section>
       <List 
       mealsToDisplay={this.state.mealsToDisplay}
-      deleteMeal={this.deleteMeal}/>
-      <Totals mealsToDisplay={this.state.mealsToDisplay}/>
+      deleteMeal={this.deleteMeal}
+      index={this.state.index}/>
+      <Totals proteinTotal={this.state.proteinTotal}/>
     </div>
   );
   }

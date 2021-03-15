@@ -1,3 +1,63 @@
 .App {
   text-align: center;
 }
+
+* {
+  /* background-color: rgb(133, 163, 207); */
+  margin: 0;
+}
+
+.header {
+  background-color: lightgray;
+}
+
+.parent-entry {
+  width: 100%;
+  display: flex;
+  border: 1px solid black;
+}
+
+.child-entry {
+  width: 100vw;
+  display: flex;
+  justify-content: space-evenly;
+  background-color: lightgray;
+  padding: 10px;
+}
+
+.box {
+  width: 90px;
+  height: 20px;
+}
+
+.btn {
+  border-radius: 10px;
+}
+
+input {
+  width: 70px;
+  height: 20px;
+  text-align: center;
+  border: 2px black solid;
+  color: black;
+}
+
+button {
+  border: 2px black solid;
+}
+
+.mealInput {
+  width: 100px;
+  height: 20px;
+}
+
+.inputBar {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: lightgray;
+  padding: 10px;
+}
+
+.footer {
+  background-color: lightgray;
+}

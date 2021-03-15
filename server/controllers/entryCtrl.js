@@ -1,4 +1,4 @@
-const meals = [`test`]
+const meals = []
 let id = 1
 
 module.exports = {
