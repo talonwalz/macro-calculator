@@ -16,20 +16,22 @@ module.exports = {
        res.status(200).send(meals)
     },
 
-//     editMeal:
     editMeal: (req, res) => {
+        
         const {id} = req.params
-        const {meal, protein, carbs, fats} = req.body
+        const {changeMeal} = req.body
         let index = null;
+        console.log(changeMeal)
+        console.log(meals)
         meals.forEach((meal, i) => {
             if (meal.id === +id) index = i;
         })
         meals[index] = {
             id: meals[index].id,
-            meal: meal || meals[index].meal,
-            protein: protein || meals[index].protein,
-            carbs: carbs || meals[index].carbs,
-            fats: fats || meals[index].carbs
+            meal: changeMeal.meal || meals[index].meal,
+            protein: changeMeal.protein || meals[index].protein,
+            carbs: changeMeal.carbs || meals[index].carbs,
+            fats: changeMeal.fats || meals[index].carbs
         }
         res.status(200).send(meals)
     },

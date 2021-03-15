@@ -49,7 +49,7 @@ class App extends Component {
   componentDidMount() {
     axios.get('/api/macros')
     .then(res => {
-      console.log(res.data)
+      // console.log(res.data)
       this.setState({mealsToDisplay: res.data})
     })
     .catch(err => console.log(err))
@@ -71,37 +71,52 @@ class App extends Component {
       proteinTotal: this.state.proteinTotal + +this.state.proteinInput,
       carbsTotal: this.state.carbsTotal + +this.state.carbsInput,
       fatsTotal: this.state.fatsTotal + +this.state.fatsInput
-      // add same for carbs and fats
     })
-    console.log(newMeal)
     axios.post('/api/macros', {newMeal})
     .then(res => {
       // console.log(res.data)
-      console.log(this.state.proteinTotal)
       this.setState({mealsToDisplay: res.data})
     })
     .catch(err => console.log(err))
   }
 
-// PUT 
-editMeal(id, newMeal, newProtein, newCarbs, newFats) {
-  let body = {
-    meal: newMeal,
-    protein: newProtein,
-    carbs: newCarbs,
-    fats: newFats
+editMeal(id) {
+  let changeMeal = {
+    meal: this.state.mealInput,
+    protein: this.state.proteinInput,
+    carbs: this.state.carbsInput,
+    fats: this.state.fatsInput
   }
-  console.log(body)
-  axios.put(`./api/macros/${id}`, body)
+  this.setState({
+    mealInput: ``,
+    proteinInput: ``,
+    carbsInput: ``,
+    fatsInput: ``,
+  })
+  console.log({changeMeal})
+  axios.put(`/api/macros/${id}`, {changeMeal})
   .then(res => {
-    this.setState({mealsToDisplay: res.data})
+
+    const proteinReducer = (acc, cur) => acc + +cur.protein
+    const proteinTtl = res.data.reduce(proteinReducer, 0)
+    const carbReducer = (acc, cur) => acc + +cur.carbs
+    const carbTtl = res.data.reduce(carbReducer, 0)
+    const fatsReducer = (acc, cur) => acc + +cur.fats
+    const fatsTtl = res.data.reduce(fatsReducer, 0)
+
+    this.setState({
+      mealsToDisplay: res.data,
+      proteinTotal: proteinTtl,
+      carbsTotal: carbTtl,
+      fatsTotal: fatsTtl
+    })
   })
   .catch(err => console.log(err))
 }
 
 
 // DELETE
-  deleteMeal(id, index) {
+  deleteMeal(id) {
     axios.delete(`/api/macros/${id}`)
     .then(res => {
       const proteinReducer = (acc, cur) => acc + +cur.protein

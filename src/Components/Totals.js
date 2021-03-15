@@ -9,10 +9,10 @@ const Totals = (props) => {
         <section className="totals">
             <div></div>
             <div></div>
-        <h1>Protein: {proteinTotal} g</h1>
-        <h1>Carbs: {carbsTotal} g</h1> 
-        <h1>Fats: {fatsTotal} g</h1> 
-        <h1>{total} calories</h1>
+        <h1 className="macroTotal">Protein: {proteinTotal} g</h1>
+        <h1 className="macroTotal">Carbs: {carbsTotal} g</h1> 
+        <h1 className="macroTotal">Fats: {fatsTotal} g</h1> 
+        <h1 className="underline">{total} calories</h1>
         </section>
     )
 }

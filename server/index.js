@@ -8,7 +8,7 @@ app.get('/api/macros', entryCtrl.getMeals)
 
 app.post('/api/macros/', entryCtrl.addMeals)
 
-// app.put('/api/macros/:id', EntryCtrl.editMeal)
+app.put('/api/macros/:id', entryCtrl.editMeal)
 
 app.delete('/api/macros/:id', entryCtrl.deleteMeal)
 

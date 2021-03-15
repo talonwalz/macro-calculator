@@ -28,6 +28,7 @@
 
 .child-entry {
   width: 80vw;
+  /* height: 100%; */
   display: flex;
   justify-content: space-evenly;
   background-color: lightgray;
@@ -37,7 +38,7 @@
 
 
 .box1 {
-  width: 30%;
+  width: 25%;
   height: 20px;
   text-align: left;
 }
@@ -50,6 +51,7 @@
 
 .btn {
   border-radius: 10px;
+  /* height: 20px; */
 }
 
 input {
@@ -81,8 +83,15 @@ button {
   display: flex;
   justify-content: space-evenly;
   padding: 20px;
+  border: 2px solid transparent;
 }
 
-.totals div {
-  font-weight: 600;
+.macroTotal {
+  font-weight: 500;
+}
+
+.underline {
+  border-bottom: black 2px solid;
+  font-weight: 700;
+  
 }
