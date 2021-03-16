@@ -19,7 +19,7 @@ class App extends Component {
       carbsTotal: 0,
       fatsTotal: 0
     }
-    //bindMethods
+  //bindMethods
     this.handleMeals = this.handleMeals.bind(this)
     this.handleProtein = this.handleProtein.bind(this)
     this.handleCarbs =this.handleCarbs.bind(this)

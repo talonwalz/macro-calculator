@@ -2,15 +2,19 @@ import React, {Component} from 'react'
 import MealEntry from './MealEntry'
 
 class List extends Component {
+    constructor() {
+        super()
+        this.state = {
+            meals: ``
+        }
+    }
 // RENDER
     render () {
             const {mealsToDisplay} = this.props
             const meals = mealsToDisplay.map((e, i) => {
                 return (
                 <section className="child-entry" key={e.id}>
-                    {/* <div className="box meal" >Meal: {e.id}</div> */}
                     <div className="box1" >{e.meal}</div>
-                    {/* <div>index:{i}</div> */}
                     <div className="box" >{e.protein}</div>
                     <div className="box" >{e.carbs}</div>
                     <div className="box" >{e.fats}</div>
