@@ -45,8 +45,18 @@ class App extends Component {
   componentDidMount() {
     axios.get('/api/macros')
     .then(res => {
-      // console.log(res.data)
-      this.setState({mealsToDisplay: res.data})
+      const proteinReducer = (acc, cur) => acc + +cur.protein
+    const proteinTtl = res.data.reduce(proteinReducer, 0)
+    const carbReducer = (acc, cur) => acc + +cur.carbs
+    const carbTtl = res.data.reduce(carbReducer, 0)
+    const fatsReducer = (acc, cur) => acc + +cur.fats
+    const fatsTtl = res.data.reduce(fatsReducer, 0)
+      this.setState({
+        mealsToDisplay: res.data,
+        proteinTotal: proteinTtl,
+        carbsTotal: carbTtl,
+        fatsTotal: fatsTtl
+      })
     })
     .catch(err => console.log(err))
   }
