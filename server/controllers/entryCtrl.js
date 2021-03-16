@@ -20,6 +20,7 @@ module.exports = {
         const {id} = req.params
         const {changeMeal} = req.body
         let index = null;
+        console.log(changeMeal)
         meals.forEach((meal, i) => {
             if (meal.id === +id) index = i;
         })
@@ -28,7 +29,7 @@ module.exports = {
             meal: changeMeal.meal || meals[index].meal,
             protein: changeMeal.protein || meals[index].protein,
             carbs: changeMeal.carbs || meals[index].carbs,
-            fats: changeMeal.fats || meals[index].carbs
+            fats: changeMeal.fats || meals[index].fats
         }
         res.status(200).send(meals)
     },
@@ -43,6 +44,6 @@ module.exports = {
 
 // 1 GET this handler will send the meals arrray
 // 2 PUT this handler will take in an object, assign an id to it and put it in to the meals array and then increment the id by one for the next object
-//3 POST this handler will allow me to edit each object in the array by receivng an id and finding that the index of that id and then changing the information that has been sent in the new body object
+// 3 POST this handler will allow me to edit each object in the array by receivng an id and finding that the index of that id and then changing the information that has been sent in the new body object
 // 4 DELETE this handler will take in an id and match it to the object that has the same id and remove it from the array
 
