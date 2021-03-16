@@ -20,7 +20,6 @@ module.exports = {
         const {id} = req.params
         const {changeMeal} = req.body
         let index = null;
-        console.log(changeMeal)
         meals.forEach((meal, i) => {
             if (meal.id === +id) index = i;
         })
